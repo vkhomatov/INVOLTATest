@@ -11,7 +11,6 @@ class RandomJokeViewModel {
     
     var joke = Joke()
     private let networkService = NetworkService()
-    let udService = UDService()
     
     func loadRandomJoke(completion: @escaping (String?) -> ()) {
         networkService.getRandomJoke { [weak self] result, message  in
@@ -20,13 +19,13 @@ class RandomJokeViewModel {
             case let .success(joke):
                 self.joke = joke
                 print(#function + " данные успешно загружены")
-                    completion(nil)
+                completion(nil)
             case .failure(let error):
                 print("Ошибка: \(error.localizedDescription), не удалось загрузить данные")
-                    completion(error.localizedDescription)
+                completion(error.localizedDescription)
             case .none:
                 print("Ошибка сервера: \(message ?? "Unknown"), не удалось загрузить данные")
-                    completion(message)
+                completion(message)
             }
         }
     }

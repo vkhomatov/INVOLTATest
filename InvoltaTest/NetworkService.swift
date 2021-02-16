@@ -11,19 +11,17 @@ import UIKit
 
 final class NetworkService {
     
-//    Grab a random joke!
-//    https://official-joke-api.appspot.com/random_joke
-//    https://official-joke-api.appspot.com/jokes/random
-//
-//    Grab ten random jokes!
-//    https://official-joke-api.appspot.com/random_ten
-//    https://official-joke-api.appspot.com/jokes/ten
-    
+    //    Grab a random joke!
+    //    https://official-joke-api.appspot.com/random_joke
+    //    https://official-joke-api.appspot.com/jokes/random
+    //
+    //    Grab ten random jokes!
+    //    https://official-joke-api.appspot.com/random_ten
+    //    https://official-joke-api.appspot.com/jokes/ten
     
     let session = URLSession.shared
     var urlConstructor = URLComponents()
     
-   
     func getRandomJoke(completion: @escaping (Swift.Result<Joke, Error>?, String?) -> Void)  {
         urlConstructor.scheme = "https"
         urlConstructor.host = "official-joke-api.appspot.com"
@@ -43,8 +41,6 @@ final class NetworkService {
             print("Неверный формат URL")
         }
     }
-    
-  //  ((Swift.Result<[FriendAlbum], Error>) -> Void)? = nil)
     
     func getMoreJokes(completion: @escaping ((Swift.Result<[Joke], Error>?, String?) -> Void))  {
         urlConstructor.scheme = "https"

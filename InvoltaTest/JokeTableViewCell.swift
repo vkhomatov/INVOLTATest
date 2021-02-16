@@ -24,19 +24,11 @@ class JokeTableViewCell: UITableViewCell {
     func layout() {
         self.layoutSubviews()
         cellHeight = idLabel.frame.height + typeLabel.frame.height + setupLabel.frame.height  + punchlineLabel.frame.height + 50.0
-       // print(cellHeight)
     }
 
     override func sizeThatFits(_ size: CGSize) -> CGSize {
-        // 1) Set the contentView's width to the specified size parameter
         contentView.clipsToBounds = true
-        
-        // 2) Layout the contentView's controls
-       self.layout()
-        
-        // 3) Returns a size that contains all controls
-       // let cellHeight = idLabel.frame.height + typeLabel.frame.height + setupLabel.frame.height  + punchlineLabel.frame.height
-        
+        self.layout()
         return CGSize(width: contentView.frame.width, height: cellHeight)
     }
 

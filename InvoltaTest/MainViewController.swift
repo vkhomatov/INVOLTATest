@@ -13,7 +13,6 @@ class MainViewController: UIViewController {
     private let modelJokes = MoreJokesViewModel()
     private let modelJoke = RandomJokeViewModel()
 
-
     @IBOutlet weak var randomImageView: UIImageView!
     @IBOutlet weak var showMoreJokeButton: UIButton!
     @IBOutlet weak var showRandomJokeButton: UIButton!
@@ -26,14 +25,16 @@ class MainViewController: UIViewController {
         self.errorLabel.text = "Загрузка ..."
         self.modelMain.getImagesHesh()
         self.loadImage(images: modelMain.imagesDictionary)
+        self.showMoreJokeButton.layer.opacity = 0.0
+        self.showRandomJokeButton.layer.opacity = 0.0
     }
     
     @IBAction func showRandomJokeButtonPress(_ sender: UIButton) {
-        
+       
     }
     
-    @IBAction func showMoreJokeButtonPress(_ sender: UIButton) {        
-        
+    @IBAction func showMoreJokeButtonPress(_ sender: UIButton) {
+
     }
     
     func loadImage(images: [Int : String]) {
@@ -48,11 +49,15 @@ class MainViewController: UIViewController {
                             if let picture = image {
                                 self.errorLabel.isHidden = true
                                 self.randomImageView.image = picture
+                                self.randomImageView.layer.opacity = 0.0
+                                self.modelMain.animationView(view: self.randomImageView, duration: 2.0, delay: 0.0, offsetY: 0.0, opacity: 1.0)
                                 self.modelMain.udService.saveImage(key: randomImage.key, string: randomImage.value, image: picture)
                             }
                         } else {
                             self.errorLabel.text = message
                         }
+                        self.modelMain.animationView(view: self.showMoreJokeButton, duration: 2.0, delay: 0.0, offsetY: -300, opacity: 1.0)
+                        self.modelMain.animationView(view: self.showRandomJokeButton, duration: 2.0, delay: 0.15, offsetY: -300, opacity: 1.0)
                     }
                 }
         }
@@ -75,6 +80,14 @@ class MainViewController: UIViewController {
         
     }
     
-   
+    private func coolAnimation(view: UIView) {
+        
+    }
+    
+    //    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+    //
+    //        return true
+    //    }
+    
 }
 

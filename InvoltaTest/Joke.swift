@@ -6,8 +6,6 @@
 //
 
 import Foundation
-import UIKit
-
 
 //"id": 89,
 //"type": "general",
@@ -15,11 +13,9 @@ import UIKit
 //"punchline": "It was udder destruction."
 
 struct Joke: Codable, Equatable {
-    
     static func == (lhs: Joke, rhs: Joke) -> Bool {
         return lhs.id == rhs.id
     }
-    
     var id = Int()
     var type = String()
     var setup = String()

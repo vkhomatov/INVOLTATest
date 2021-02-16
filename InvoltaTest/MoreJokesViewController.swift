@@ -9,44 +9,40 @@ import UIKit
 
 class MoreJokesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    
     @IBOutlet weak var jokesTableView: UITableView!
     var model = MoreJokesViewModel()
     var firstTime: Bool = true
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         jokesTableView.delegate = self
         jokesTableView.dataSource = self
-        self.title = "More More Jokes"
         
-        if model.allJokes.count == 0 {
             self.title = "Loading ..."
             
-            model.loadMoreJokes { [self] message in
+            model.loadMoreJokes { [weak self] message in
+                guard let self = self else { return }
                 DispatchQueue.main.async {
                     if message == nil {
-                        model.allJokes = model.jokes
-                        self.title = "More More Jokes"
+                        self.model.allJokes = self.model.jokes
                         self.jokesTableView.reloadData()
+                        self.title = "More More Jokes"
+                        self.model.udService.saveJokes(jokes: self.model.allJokes)
                     } else {
-                        model.allJokes = model.udService.loadJokes()
-                        if model.allJokes.count > 0 {
+                        if self.model.allJokes.count == 0 {
+                            self.model.allJokes = self.model.udService.loadJokes()
                             self.jokesTableView.reloadData()
-                            self.title = "Сохраненнные шутки"
-                        } else {
+                        }
+                        if self.model.allJokes.count > 0 {
+                            self.title = "Заначка с шутками"
+                            self.jokesTableView.reloadData()
+                        }
+                        else {
                             self.title = message
                         }
                     }
                 }
             }
-        }
-        
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        model.udService.saveJokes(jokes: model.allJokes)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -74,16 +70,17 @@ class MoreJokesViewController: UIViewController, UITableViewDelegate, UITableVie
                 self.model.loadMoreJokes { [self] message in
                     DispatchQueue.main.async {
                         if message == nil {
-                            
                             for newjoke in model.jokes {
                                 if !model.allJokes.contains(newjoke) {
                                     model.allJokes.append(newjoke)
                                 }
                             }
-                            self.title = "More More Jokes"
                             self.jokesTableView.reloadData()
-                        } else {
-                            self.title = message
+                            self.title = "More More Jokes"
+                            self.model.udService.saveJokes(jokes: model.allJokes)
+                            
+                        } else if self.model.allJokes.count > 0 {
+                            self.title = "Заначка с шутками"
                         }
                     }
                 }

@@ -6,14 +6,11 @@
 //
 
 import Foundation
-import UIKit
-
 
 class MoreJokesViewModel {
     
-    
     private let networkService = NetworkService()
-    let udService = UDService()
+    var udService = UDService()
     var jokes = [Joke]()
     var allJokes = [Joke]()
     
@@ -24,13 +21,13 @@ class MoreJokesViewModel {
             case let .success(jokes):
                 self.jokes = jokes
                 print(#function + " данные успешно загружены")
-                    completion(nil)
+                completion(nil)
             case .failure(let error):
                 print("Ошибка: \(error.localizedDescription), не удалось загрузить данные")
-                    completion(error.localizedDescription)
+                completion(error.localizedDescription)
             case .none:
                 print("Ошибка сервера: \(message ?? "Unknown"), не удалось загрузить данные")
-                    completion(message)
+                completion(message)
             }
         }
     }

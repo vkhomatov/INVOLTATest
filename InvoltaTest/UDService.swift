@@ -17,7 +17,6 @@ final class UDService {
     func readImage(key: Int) -> UIImage? {
         if let filename = defaults.object(forKey: String(key)) as? String {
             print(#function + ": FILENAME = \(filename) найден в UD")
-          //  filename.description
             if let image = UIImage(contentsOfFile: filename.description) {
                 print(#function + ": файл \(filename) загружен из UD")
                 print(image)
@@ -52,7 +51,6 @@ final class UDService {
     
     func saveJokes(jokes: [Joke]) {
         if jokes.count > 0 {
-           // defaults.set(jokes.count, forKey: "jokesCount")
             let encoder = JSONEncoder()
             if let encoded = try? encoder.encode(jokes) {
                 defaults.set(encoded, forKey: "Jokes")
@@ -72,5 +70,5 @@ final class UDService {
         return [Joke]()
     }
     
-
+    
 }
