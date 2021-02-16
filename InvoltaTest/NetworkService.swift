@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-
+// работа с сетью
 final class NetworkService {
     
     //    Grab a random joke!

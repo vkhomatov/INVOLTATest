@@ -11,7 +11,6 @@ class MainViewController: UIViewController {
     
     private let modelMain = MainViewModel()
     private let modelJokes = MoreJokesViewModel()
-    private let modelJoke = RandomJokeViewModel()
 
     @IBOutlet weak var randomImageView: UIImageView!
     @IBOutlet weak var showMoreJokeButton: UIButton!
@@ -20,13 +19,18 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.title = "Involta Test"
         self.errorLabel.isHidden = false
         self.errorLabel.text = "Загрузка ..."
-        self.modelMain.getImagesHesh()
-        self.loadImage(images: modelMain.imagesDictionary)
         self.showMoreJokeButton.layer.opacity = 0.0
         self.showRandomJokeButton.layer.opacity = 0.0
+        self.showMoreJokeButton.layer.cornerRadius = 5.0
+        self.showRandomJokeButton.layer.cornerRadius = 5.0
+        self.randomImageView.layer.cornerRadius = 5.0
+        
+        self.modelMain.getImagesHesh()
+        self.loadImage(images: modelMain.imagesDictionary)
     }
     
     @IBAction func showRandomJokeButtonPress(_ sender: UIButton) {
@@ -37,10 +41,17 @@ class MainViewController: UIViewController {
 
     }
     
+    //загрузка рэндомной картинки из массива
     func loadImage(images: [Int : String]) {
         guard let randomImage = images.randomElement() else { return }
         if let image = modelMain.udService.readImage(key: randomImage.key) {
-            randomImageView.image = image
+            self.errorLabel.isHidden = true
+            self.randomImageView.image = image
+            self.randomImageView.layer.opacity = 0.0
+            self.modelMain.animationView(view: self.randomImageView, duration: 2.0, delay: 0.0, offsetY: 0.0, opacity: 1.0)
+            self.modelMain.animationView(view: self.showMoreJokeButton, duration: 2.0, delay: 0.0, offsetY: -300, opacity: 1.0)
+            self.modelMain.animationView(view: self.showRandomJokeButton, duration: 2.0, delay: 0.15, offsetY: -300, opacity: 1.0)
+
         } else {
                 self.modelMain.loadImageFromUrl(string: randomImage.value) { [weak self] image, message in
                     guard let self = self else { return }
@@ -65,10 +76,7 @@ class MainViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         guard let mainViewController = segue.source as? MainViewController else { return }
-
-        
         if segue.identifier == "showManyJokes" {
             guard let moreJokesViewController = segue.destination as? MoreJokesViewController else { return }
             moreJokesViewController.model = mainViewController.modelJokes
@@ -77,10 +85,6 @@ class MainViewController: UIViewController {
             guard let randomJokeViewController = segue.destination as? RandomJokeViewController else { return }
             randomJokeViewController.modelJokes = mainViewController.modelJokes
         }
-        
-    }
-    
-    private func coolAnimation(view: UIView) {
         
     }
     

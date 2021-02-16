@@ -14,6 +14,7 @@ class MoreJokesViewModel {
     var jokes = [Joke]()
     var allJokes = [Joke]()
     
+    // загрузка 10-ти шуток
     func loadMoreJokes(completion: @escaping (String?) -> ()) {
         networkService.getMoreJokes { [weak self] result, message  in
             guard let self = self else { return }

@@ -18,31 +18,31 @@ class MoreJokesViewController: UIViewController, UITableViewDelegate, UITableVie
         jokesTableView.delegate = self
         jokesTableView.dataSource = self
         
-            self.title = "Loading ..."
-            
-            model.loadMoreJokes { [weak self] message in
-                guard let self = self else { return }
-                DispatchQueue.main.async {
-                    if message == nil {
-                        self.model.allJokes = self.model.jokes
+        self.title = "Loading ..."
+        
+        model.loadMoreJokes { [weak self] message in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                if message == nil {
+                    self.model.allJokes = self.model.jokes
+                    self.jokesTableView.reloadData()
+                    self.title = "More More Jokes"
+                    self.model.udService.saveJokes(jokes: self.model.allJokes)
+                } else {
+                    if self.model.allJokes.count == 0 {
+                        self.model.allJokes = self.model.udService.loadJokes()
                         self.jokesTableView.reloadData()
-                        self.title = "More More Jokes"
-                        self.model.udService.saveJokes(jokes: self.model.allJokes)
-                    } else {
-                        if self.model.allJokes.count == 0 {
-                            self.model.allJokes = self.model.udService.loadJokes()
-                            self.jokesTableView.reloadData()
-                        }
-                        if self.model.allJokes.count > 0 {
-                            self.title = "Заначка с шутками"
-                            self.jokesTableView.reloadData()
-                        }
-                        else {
-                            self.title = message
-                        }
+                    }
+                    if self.model.allJokes.count > 0 {
+                        self.title = "Заначка с шутками"
+                        self.jokesTableView.reloadData()
+                    }
+                    else {
+                        self.title = message
                     }
                 }
             }
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -58,7 +58,6 @@ class MoreJokesViewController: UIViewController, UITableViewDelegate, UITableVie
             cell.setupLabel.text = model.allJokes[indexPath.row].setup
             cell.punchlineLabel.text = model.allJokes[indexPath.row].punchline
         }
-        
         return cell
     }
     

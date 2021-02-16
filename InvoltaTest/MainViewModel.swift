@@ -11,24 +11,23 @@ class MainViewModel {
     
     private let networkService = NetworkService()
     let udService = UDService()
+    var imagesDictionary = [Int : String]()
+    private var image = UIImage()
     
     private let pictureUrls = ["https://i.ytimg.com/vi/XWJO_oHk8o0/maxresdefault.jpg",
                                "https://prozarplaty.ru/wp-content/uploads/2019/06/kakuju-zarplatu-poluchajut-programmisty.jpg",
                                "https://pokadepressiya.ru/wp-content/uploads/f/5/a/f5ad341e49746367b4c3627dbeda98e9.jpg",
                                "https://hr-portal.ru/files/mini/15-53.jpg",
                                "https://cs-msk-fd-4.ykt2.ru/media/upload/photo/2019/05/20/26e5a8ab-7db6-487d-9224-965d4eb8bb04.jpeg"]
-    
-    var imagesDictionary = [Int : String]()
-    
-    private var image = UIImage()
-    
+   
+    //генераци хеш ключей для картинок и создания словаря
     func getImagesHesh() {
         pictureUrls.forEach { url in
             imagesDictionary.updateValue(url, forKey:  url.hash)
         }
     }
     
-    
+    // загрузка изображение из сети
     func loadImageFromUrl(string: String, completion: @escaping (UIImage?, String?) -> ()) {
         networkService.getData(string: string) { [weak self] result, message  in
             guard let self = self else { return }
@@ -53,6 +52,7 @@ class MainViewModel {
         
     }
     
+    //анимация вью
     func animationView(view: UIView, duration: Double, delay: Double,  offsetY: CGFloat, opacity: Float) {
         UIView.animate(withDuration: duration, delay: delay, animations: {
             view.frame = view.frame.offsetBy(dx: 0, dy: offsetY)

@@ -12,6 +12,7 @@ class RandomJokeViewModel {
     var joke = Joke()
     private let networkService = NetworkService()
     
+    // загрузка рэндомной шутки
     func loadRandomJoke(completion: @escaping (String?) -> ()) {
         networkService.getRandomJoke { [weak self] result, message  in
             guard let self = self else { return }
