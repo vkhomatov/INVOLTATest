@@ -56,10 +56,10 @@ class MainViewModel {
     func animationView(view: UIView, duration: Double, delay: Double,  offsetY: CGFloat, opacity: Float) {
         UIView.animate(withDuration: duration, delay: delay, animations: {
             view.frame = view.frame.offsetBy(dx: 0, dy: offsetY)
-            view.layer.opacity = opacity
-        }) { (finish) in
-            print("Анимация view завершена")
-        }
+                        view.layer.opacity = opacity })
+//        }) { (finish) in
+//            print("Анимация view завершена")
+//        }
     }
     
 }

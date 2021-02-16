@@ -13,36 +13,17 @@ final class UDService {
     private let defaults = UserDefaults.standard
     private let filemanager = FileManager.default
     
-    /*  func readImage(key: Int) -> UIImage? {
-        if let filename = defaults.object(forKey: String(key)) as? String {
-            print(#function + ": FILENAME = \(filename) найден в UserDefuults, ключ \(String(key))")
-
-//            let fullpath = getImagesDirectory().absoluteURL.appendingPathComponent(filename)
-//            print(#function + ": FILEPATH = \(fullpath.absoluteString)")
-
-
-            if let image = UIImage(contentsOfFile: filename) {
-                print(#function + ": файл \(filename) загружен из UserDefuults")
-                print(image)
-                return image
-            }
-        } else {
-            print(#function + ": файл с ключом \(key) в UserDefuults не обнаружен")
-        }
-        return nil
-    } */
-    
     func readImage(key: Int) -> UIImage? {
         if let filename = defaults.object(forKey: String(key)) as? String {
-            print(#function + ": FILENAME = \(filename) найден в UserDefuults, ключ \(String(key))")
+            print(#function + ": FILENAME:\n\(filename) найден в UserDefuults, ключ \(String(key))")
 
             let fullpath = getImagesDirectory().absoluteURL.appendingPathComponent(filename)
-            print(#function + ": FILEPATH = \(fullpath.absoluteString)")
+            print(#function + ": FILEPATH\n\(fullpath.absoluteString)")
             
-            if let pngUrl = URL.init(string: fullpath.absoluteString) {
-                if let data = try? Data.init(contentsOf: pngUrl) {
+            if let jpgUrl = URL.init(string: fullpath.absoluteString) {
+                if let data = try? Data.init(contentsOf: jpgUrl) {
                   let photo = UIImage.init(data: data)
-                    print(#function + ": файл \(fullpath.absoluteString) загружен из UserDefuults")
+                    print(#function + "\n\(fullpath.absoluteString) загружен из UserDefuults")
                   return photo
                 }
             }
@@ -58,12 +39,12 @@ final class UDService {
 
             if let _ = try? data.write(to: filename) {
                 defaults.setValue(filename.lastPathComponent, forKey: String(key))
-                print(#function + ": запись файла \(filename.absoluteString)\nпрошла успешно, ключ \(String(key))")
+                print(#function + ": запись файла\n\(filename.absoluteString)\nпрошла успешно, ключ \(String(key))")
             } else {
-                print(#function + ":  ОШИБКА записи файла \(filename)")
+                print(#function + ":  ОШИБКА записи файла\n\(filename)")
             }
         } else {
-            print(#function + ":  ОШИБКА записи файла \(string)")
+            print(#function + ":  ОШИБКА записи файла\n\(string)")
         }
     }
     
@@ -79,7 +60,7 @@ final class UDService {
             let encoder = JSONEncoder()
             if let encoded = try? encoder.encode(jokes) {
                 defaults.set(encoded, forKey: "Jokes")
-                print(#function + ": \(jokes.count) шуток сохранены в UserDefuults")
+                print(#function + ":\n\(jokes.count) шуток сохранены в UserDefuults")
             }
         }
     }
@@ -88,7 +69,7 @@ final class UDService {
         if let savedJokes = defaults.object(forKey: "Jokes") as? Data {
             let decoder = JSONDecoder()
             if let loadedJokes = try? decoder.decode([Joke].self, from: savedJokes) {
-                print(#function + ": \(loadedJokes.count) шуток загружены из UserDefuults")
+                print(#function + ":\n\(loadedJokes.count) шуток загружены из UserDefuults")
                 return loadedJokes
             }
         }
