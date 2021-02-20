@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MoreJokesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class MoreJokesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource/*, UITableViewDataSourcePrefetching*/ {
     
     @IBOutlet weak var jokesTableView: UITableView!
     var model = MoreJokesViewModel()
@@ -17,6 +17,7 @@ class MoreJokesViewController: UIViewController, UITableViewDelegate, UITableVie
         super.viewDidLoad()
         jokesTableView.delegate = self
         jokesTableView.dataSource = self
+        
         
         self.title = "Loading ..."
         
@@ -65,25 +66,28 @@ class MoreJokesViewController: UIViewController, UITableViewDelegate, UITableVie
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row + 1 == model.allJokes.count {
             if !self.firstTime {
-                self.title = "Loading ..."
-                self.model.loadMoreJokes { [self] message in
-                    DispatchQueue.main.async {
-                        if message == nil {
-                            for newjoke in model.jokes {
-                                if !model.allJokes.contains(newjoke) {
-                                    model.allJokes.append(newjoke)
+                if self.model.isLoading == false {
+                    self.title = "Loading ..."
+                    self.model.loadMoreJokes { [self] message in
+                        DispatchQueue.main.async {
+                            if message == nil {
+                                for newJoke in model.jokes {
+                                    if !model.allJokes.contains(newJoke) {
+                                        model.allJokes.append(newJoke)
+                                    }
                                 }
+                                self.jokesTableView.reloadData()
+                                self.title = "More More Jokes"
+                                self.model.udService.saveJokes(jokes: model.allJokes)
+                                
+                            } else if self.model.allJokes.count > 0 {
+                                self.title = "Заначка с шутками"
                             }
-                            self.jokesTableView.reloadData()
-                            self.title = "More More Jokes"
-                            self.model.udService.saveJokes(jokes: model.allJokes)
-                            
-                        } else if self.model.allJokes.count > 0 {
-                            self.title = "Заначка с шутками"
                         }
                     }
+                } else {
+                    print("Шутки еще грузятся")
                 }
-                
             }
             self.firstTime = false
         }
