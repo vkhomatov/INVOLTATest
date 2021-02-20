@@ -11,6 +11,7 @@ class MainViewController: UIViewController {
     
     private let modelMain = MainViewModel()
     private let modelJokes = MoreJokesViewModel()
+ //   private let monitor = NetworkMonitor()
 
     @IBOutlet weak var randomImageView: UIImageView!
     @IBOutlet weak var showMoreJokeButton: UIButton!
@@ -19,6 +20,17 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//        self.monitor.start()
+//
+//        monitor.monitor.pathUpdateHandler = { path in
+//
+//            if path.status == .unsatisfied {
+//                print("BackOnline")
+//            } else if  path.status == .satisfied {
+//                print("Offline")
+//            }
+//        }
         
         self.title = "Involta Test"
         self.errorLabel.isHidden = false

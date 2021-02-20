@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5809783125DE1C48002386EF /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5809783025DE1C48002386EF /* NetworkMonitor.swift */; };
 		58C3C8EE25DA69EE007A83FE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C3C8ED25DA69EE007A83FE /* AppDelegate.swift */; };
 		58C3C8F025DA69EE007A83FE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C3C8EF25DA69EE007A83FE /* SceneDelegate.swift */; };
 		58C3C8F225DA69EE007A83FE /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C3C8F125DA69EE007A83FE /* MainViewController.swift */; };
@@ -25,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5809783025DE1C48002386EF /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		58C3C8EA25DA69EE007A83FE /* InvoltaTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InvoltaTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		58C3C8ED25DA69EE007A83FE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		58C3C8EF25DA69EE007A83FE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 				58C3C90D25DA7FA4007A83FE /* JokeTableViewCell.swift */,
 				58C3C91025DA83E3007A83FE /* Joke.swift */,
 				58C3C91325DA84B6007A83FE /* NetworkService.swift */,
+				5809783025DE1C48002386EF /* NetworkMonitor.swift */,
 				58DB78E625DA9AE500A40CDF /* UDService.swift */,
 				58C3C8F325DA69EE007A83FE /* Main.storyboard */,
 				58C3C8F625DA69F0007A83FE /* Assets.xcassets */,
@@ -173,6 +176,7 @@
 				58C3C90525DA6E53007A83FE /* RandomJokeViewController.swift in Sources */,
 				58C3C90825DA6FC1007A83FE /* MoreJokesViewController.swift in Sources */,
 				58C3C8F025DA69EE007A83FE /* SceneDelegate.swift in Sources */,
+				5809783125DE1C48002386EF /* NetworkMonitor.swift in Sources */,
 				58C3C91125DA83E3007A83FE /* Joke.swift in Sources */,
 				58C3C92125DA8918007A83FE /* MoreJokesViewModel.swift in Sources */,
 				58C3C91E25DA88E2007A83FE /* MainViewModel.swift in Sources */,

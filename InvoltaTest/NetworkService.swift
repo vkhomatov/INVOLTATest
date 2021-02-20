@@ -19,6 +19,15 @@ final class NetworkService {
     //    https://official-joke-api.appspot.com/random_ten
     //    https://official-joke-api.appspot.com/jokes/ten
     
+
+//    let session: URLSession = {
+//        let config = URLSessionConfiguration.default
+//        config.waitsForConnectivity = true
+//        config.timeoutIntervalForRequest = 30
+//        config.timeoutIntervalForResource = 300
+//        return URLSession(configuration: config)
+//    }()
+    
     let session = URLSession.shared
     var urlConstructor = URLComponents()
     
